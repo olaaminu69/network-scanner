@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 OS Fingerprinting Module
-Author: Olaoluwa Aminu Taiwo
+Author: Olaoluwa Aminu-Taiwo
 Description: Identify target operating system using TCP/IP stack analysis
 """
 

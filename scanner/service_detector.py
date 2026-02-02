@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Service Detection Module
-Author: Olaoluwa Aminu Taiwo
+Author: Olaoluwa Aminu-Taiwo
 Description: Identifies services and versions running on open ports
 """
 
