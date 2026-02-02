@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Network Discovery Module
-Author: Olaoluwa Aminu Taiwo
+Author: Olaoluwa Aminu-Taiwo
 Description: Discovers active hosts on the network
 """
 
