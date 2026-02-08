@@ -1,0 +1,2 @@
+Host,Hostname,OS,Port,Service,Version,Vulnerability,Severity,CVE
+192.168.1.1,router.local,Cisco IOS,,SSH,,Username enumeration vulnerability,MEDIUM,CVE-2018-15473

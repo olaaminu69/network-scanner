@@ -1,0 +1,428 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Security Assessment Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .meta {
+            background: #f8f9fa;
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .meta-label {
+            font-size: 0.875rem;
+            color: #6c757d;
+            margin-bottom: 0.25rem;
+        }
+        
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .section {
+            padding: 2rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: #2d3748;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .severity-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .severity-card {
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .severity-card.critical {
+            background: #fee;
+            border: 2px solid #dc3545;
+        }
+        
+        .severity-card.high {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+        }
+        
+        .severity-card.medium {
+            background: #fff8e1;
+            border: 2px solid #ff9800;
+        }
+        
+        .severity-card.low {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+        }
+        
+        .severity-count {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        
+        .severity-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        .host-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .host-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .host-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .host-badge {
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .detail-section {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .detail-section h4 {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            color: #495057;
+        }
+        
+        .detail-list {
+            list-style: none;
+        }
+        
+        .detail-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e9ecef;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        .vuln-item {
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+        
+        .vuln-item.critical {
+            background: #fee;
+            border-color: #dc3545;
+        }
+        
+        .vuln-item.high {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+        
+        .vuln-item.medium {
+            background: #fff8e1;
+            border-color: #ff9800;
+        }
+        
+        .vuln-item.low {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+        
+        .vuln-severity {
+            font-weight: 700;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .vuln-description {
+            font-size: 0.875rem;
+            color: #495057;
+            margin-bottom: 0.25rem;
+        }
+        
+        .vuln-recommendation {
+            font-size: 0.75rem;
+            color: #6c757d;
+            font-style: italic;
+        }
+        
+        .footer {
+            padding: 2rem;
+            text-align: center;
+            background: #f8f9fa;
+            color: #6c757d;
+            font-size: 0.875rem;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🔍 Network Security Assessment Report</h1>
+            <p>Comprehensive vulnerability and security analysis</p>
+        </div>
+        
+        <!-- Metadata -->
+        <div class="meta">
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <span class="meta-label">Scan Date</span>
+                    <span class="meta-value">2026-02-08T12:32:59.461078</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Target</span>
+                    <span class="meta-value">192.168.1.0/24</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Scan Type</span>
+                    <span class="meta-value">Quick</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Generated By</span>
+                    <span class="meta-value">Network Scanner v1.0</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Executive Summary -->
+        <div class="section">
+            <h2>📊 Executive Summary</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">1</div>
+                    <div class="stat-label">Hosts Scanned</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">Open Ports</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">Services Detected</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">1</div>
+                    <div class="stat-label">Vulnerabilities</div>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Vulnerability Breakdown</h3>
+            <div class="severity-grid">
+                <div class="severity-card critical">
+                    <div class="severity-count">0</div>
+                    <div class="severity-label">Critical</div>
+                </div>
+                <div class="severity-card high">
+                    <div class="severity-count">0</div>
+                    <div class="severity-label">High</div>
+                </div>
+                <div class="severity-card medium">
+                    <div class="severity-count">1</div>
+                    <div class="severity-label">Medium</div>
+                </div>
+                <div class="severity-card low">
+                    <div class="severity-count">0</div>
+                    <div class="severity-label">Low</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed Findings -->
+        <div class="section">
+            <h2>🔍 Detailed Findings</h2>
+
+            <div class="host-card">
+                <div class="host-header">
+                    <div>
+                        <div class="host-title">192.168.1.1</div>
+                        <div style="color: #6c757d; margin-top: 0.25rem;">
+                            🖥️ router.local | OS: Cisco IOS
+                        </div>
+                    </div>
+                    <div class="host-badge">2 ports open</div>
+                </div>
+                
+                <div class="detail-grid">
+                    <!-- Open Ports -->
+                    <div class="detail-section">
+                        <h4>🔓 Open Ports</h4>
+                        <ul class="detail-list">
+
+                            <li class="detail-item">22/tcp - SSH</li>
+
+                            <li class="detail-item">80/tcp - HTTP</li>
+
+                        </ul>
+                    </div>
+                    
+                    <!-- Services -->
+                    <div class="detail-section">
+                        <h4>🎯 Services</h4>
+                        <ul class="detail-list">
+
+                            <li class="detail-item">22: SSH OpenSSH 7.4</li>
+
+                            <li class="detail-item">80: HTTP Apache 2.4</li>
+
+                        </ul>
+                    </div>
+                    
+                    <!-- Vulnerabilities -->
+                    <div class="detail-section">
+                        <h4>⚠️ Vulnerabilities</h4>
+
+                        <div class="vuln-item medium">
+                            <div class="vuln-severity">[MEDIUM] Known Vulnerability</div>
+                            <div class="vuln-description">Username enumeration vulnerability</div>
+
+                            <div class="vuln-recommendation">→ Upgrade OpenSSH to 7.8 or later</div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Generated by Network Scanner | 2026-02-08 12:32:59</p>
+            <p>This report is confidential and intended for authorized personnel only.</p>
+        </div>
+    </div>
+</body>
+</html>

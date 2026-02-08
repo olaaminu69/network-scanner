@@ -1,0 +1,51 @@
+{
+    "scan_time": "2026-02-08T12:32:59.461078",
+    "target": "192.168.1.0/24",
+    "scan_type": "quick",
+    "hosts": [
+        {
+            "ip": "192.168.1.1",
+            "hostname": "router.local",
+            "mac": "00:11:22:33:44:55",
+            "vendor": "Cisco",
+            "os": {
+                "os": "Cisco IOS",
+                "confidence": 85
+            },
+            "ports": [
+                {
+                    "port": 22,
+                    "service": "SSH",
+                    "state": "open"
+                },
+                {
+                    "port": 80,
+                    "service": "HTTP",
+                    "state": "open"
+                }
+            ],
+            "services": [
+                {
+                    "port": 22,
+                    "service": "SSH",
+                    "version": "OpenSSH 7.4"
+                },
+                {
+                    "port": 80,
+                    "service": "HTTP",
+                    "version": "Apache 2.4"
+                }
+            ],
+            "vulnerabilities": [
+                {
+                    "type": "Known Vulnerability",
+                    "severity": "MEDIUM",
+                    "cve": "CVE-2018-15473",
+                    "service": "SSH",
+                    "description": "Username enumeration vulnerability",
+                    "recommendation": "Upgrade OpenSSH to 7.8 or later"
+                }
+            ]
+        }
+    ]
+}
