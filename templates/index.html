@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+    <title>Network Scanner Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+         <header class="header">
+            <div class="logo">
+                <h1>🔍 Network Security Scanner</h1>
+                <p>Real-time network vulnerability assessment</p>
+            </div>
+            <div class="network-info">
+                <div class="info-item">
+                    <span class="label">Local IP:</span>
+                    <span id="local-ip" class="value">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Network:</span>
+                    <span id="network-range" class="value">Loading...</span>
+                </div>
+            </div>
+         </header>
+
+         <!-- Control-panel -->
+          <section class="Control-panel">
+            <div class="card">
+                <h2>🎯 Scan Configuration</h2>
+
+                <div class="form-group">
+                    <label for="scan-target">Target (leave empty for network scan)</label>
+                    <input
+                        type="text"
+                        id="scan-target"
+                        placeholder="e.g., 192.168.1.1 or scanme.nmap.org"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="scan-type">Scan Type</label>
+                    <select id="scan-type">
+                        <option value="quick">Quick Scan (20 ports)</option>
+                        <option value="common">Common Ports (18 ports)</option>
+                        <option value="full">Full Scan (All ports - SLOW)</option>
+                    </select>
+                </div>
+
+                <button id="start-scan-btn" class="btn btn-primary">
+                    🚀 Start Scan
+                </button>
+            </div>
+
+            <!-- Progress Card -->
+             <div class="card progress-card hidden" id="progress-card">
+                <h3>📊 Scan Progress</h3>
+                <div class="progress-info">
+                    <p id="progress-step">Initializing...</p>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                    <p id="progress-percent">0%</p>
+                </div>
+             </div>
+          </section>
+
+          <!-- Results Section -->
+           <section id="results-section" class="results-section hidden">
+                <h2>📋 Scan Results</h2>
+
+                <!-- Statistics -->
+                 <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🖥️</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stat-hosts">0</div>
+                            <div class="stat-label">Hosts Found</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🔓</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stat-ports">0</div>
+                            <div class="stat-label">Open Ports</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⚠️</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stat-vulns">0</div>
+                            <div class="stat-label">Vulnerabilities</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stat-services">0</div>
+                            <div class="stat-label">Services</div>
+                        </div>
+                    </div>
+                 </div>
+
+                 <!-- Host Results -->
+                  <div id="host-results" class="host-results"></div>             
+           </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+
