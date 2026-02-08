@@ -302,6 +302,48 @@ def perform_scan(target, scan_type):
         print(f"Scan error: {e}")
 
 
+@app.route('/api/export/<format>', methods=['POST'])
+def export_report(format):
+    """Export scan results"""
+    from scanner.report_generator import ReportGenerator
+    
+    data = request.get_json()
+    results = data.get('results')
+    
+    if not results:
+        return jsonify({
+            'success': False,
+            'error': 'No results to export'
+        }), 400
+    
+    try:
+        generator = ReportGenerator()
+        
+        if format == 'html':
+            filename = generator.generate_html_report(results)
+        elif format == 'json':
+            filename = generator.generate_json_report(results)
+        elif format == 'csv':
+            filename = generator.generate_csv_report(results)
+        else:
+            return jsonify({
+                'success': False,
+                'error': 'Invalid format'
+            }), 400
+        
+        return send_file(
+            filename,
+            as_attachment=True,
+            download_name=os.path.basename(filename)
+        )
+    
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
 if __name__ == '__main__':
     print("=" * 70)
     print("NETWORK SCANNER WEB DASHBOARD")

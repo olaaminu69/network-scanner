@@ -1,0 +1,52 @@
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+virtualenv/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# IDE Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Reports (optional - remove if you want to commit examples)
+reports/*.html
+reports/*.json
+reports/*.csv
+!reports/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# Environment Variables
+.env
+.env.local
+
+# Distribution
+build/
+dist/
+*.egg-info/
+
+# Test files
+test_*.py
+*_test.py
+
+# Temporary files
+*.tmp
+*.temp
